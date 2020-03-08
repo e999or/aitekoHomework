@@ -1,27 +1,18 @@
 package github.e999or;
 
 
+
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Test;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
+import java.util.Collection;
 
-@RunWith(Parameterized.class)
 public class SimpleTest {
     private static final Logger LOG = LoggerFactory.getLogger(SimpleTest.class);
-    private String name;
-    private String surname;
-
-    public SimpleTest(String name, String surname){
-        this.name =name;
-        this.surname = surname;
-    }
-
 
     @BeforeEach
     void beforEach(){
@@ -43,16 +34,17 @@ public class SimpleTest {
         LOG.info("After all");
     }
 
-    @Parameterized.Parameters(name ="{index}: Имя: {0} Фамилия: {1}")
-    public static Iterable<Object[]> dataForTest() {
+
+    public static Collection<Object[]> dataForTest() {
         return Arrays.asList(new Object[][]{
                 {"Вася", "Васильев"},
                 {"Пётр", "Петров"},
         });
     }
 
-    @Test
-    public void paramTest (){
+    @ParameterizedTest
+    @MethodSource("dataForTest")
+    public void paramTest (String name, String surname){
         LOG.info(name + " " +  surname);
     }
 }
