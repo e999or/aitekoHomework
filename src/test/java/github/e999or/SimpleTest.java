@@ -33,6 +33,10 @@ public class SimpleTest {
     static void afterALL(){
         LOG.info("After all");
     }
+    @Test
+    void simTest() {
+        LOG.info("simple test");
+    }
 
 
     public static Collection<Object[]> dataForTest() {
@@ -47,4 +51,6 @@ public class SimpleTest {
     public void paramTest (String name, String surname){
         LOG.info(name + " " +  surname);
     }
+
+
 }
